@@ -1,0 +1,8 @@
+node_modules/
+.next/
+.env*
+!.env.example
+pb_data/
+**/pocketbase/pocketbase
+next-env.d.ts
+coverage/
