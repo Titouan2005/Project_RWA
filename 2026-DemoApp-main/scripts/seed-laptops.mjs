@@ -15,12 +15,12 @@ const laptops = [
 
 const check = await fetch(`${PB_URL}/api/collections/laptops/records?perPage=1`);
 if (!check.ok) {
-  console.error("Impossible de lire la collection :", await check.text());
+  console.error("Can’t read collection:", await check.text());
   process.exit(1);
 }
 const { totalItems } = await check.json();
 if (totalItems > 0) {
-  console.log(`La collection contient déjà ${totalItems} laptops. Rien à faire.`);
+  console.log(`The collection already contains ${totalItems} laptops. Nothing to do`);
   process.exit(0);
 }
 
@@ -31,9 +31,9 @@ for (const laptop of laptops) {
     body: JSON.stringify(laptop),
   });
   if (!res.ok) {
-    console.error(`Échec pour ${laptop.model} :`, await res.text());
+    console.error(`Fail for ${laptop.model} :`, await res.text());
     process.exit(1);
   }
   console.log(`Ajouté : ${laptop.brand} ${laptop.model}`);
 }
-console.log("Terminé : 10 laptops créés.");
+console.log("Completed : 10 laptops created.");

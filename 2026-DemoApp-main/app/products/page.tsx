@@ -9,7 +9,7 @@ export default async function ProductsPage() {
   return (
     <section className="page">
       <h1>Produits</h1>
-      <Link href="/products/new">+ Ajouter un laptop</Link>
+      <Link href="/products/new">+ Add a laptop</Link>
       {products.map((p) => (
         <div className="card" key={p.id}>
           <Link href={`/products/${p.id}`}>

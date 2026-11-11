@@ -1,0 +1,10 @@
+{
+  "title": "Laptop Manager",
+  "subtitle": "Manage your laptop catalog",
+  "intro": "This application allows you to view, add, edit and delete laptops.",
+  "features": [
+    { "title": "Catalog" },
+    { "title": "management", "text": "Add, edit or delete a product" },
+    { "title": "Statistics" }
+  ]
+}
