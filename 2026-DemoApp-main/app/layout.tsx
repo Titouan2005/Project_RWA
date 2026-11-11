@@ -1,32 +1,18 @@
-// app/layout.tsx
-import "./globals.css";
 import Link from "next/link";
+import "./globals.css";
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const metadata = { title: "Laptop Manager" };
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body suppressHydrationWarning>
-        <main className="content">{children}</main>
-
+    <html lang="fr">
+      <body>
+        <main>{children}</main>
         <nav className="bottomNav">
-          <Link href="/">
-            <span>⌂</span>
-            Home
-          </Link>
-
-          <Link href="/search">
-            <span>⌕</span>
-            Search
-          </Link>
-
-          <Link href="/profile">
-            <span>○</span>
-            Profile
-          </Link>
+          <Link href="/">Home</Link>
+          <Link href="/products">Produits</Link>
+          <Link href="/products/new">Ajouter</Link>
+          <Link href="/admin">Admin</Link>
         </nav>
       </body>
     </html>
