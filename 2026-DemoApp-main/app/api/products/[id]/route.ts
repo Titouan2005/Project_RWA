@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { deleteProduct, getProduct, updateProduct } from "@/lib/products";
 import { validateProduct } from "@/lib/validation";
+import { revalidateTag } from "next/cache";
 
 type Ctx = { params: Promise<{ id: string }> };
 
@@ -33,6 +34,7 @@ export async function PUT(request: Request, { params }: Ctx) {
   try {
     const updated = await updateProduct(id, result.data);
     if (!updated) return NextResponse.json({ error: "Introuvable" }, { status: 404 });
+    revalidateTag("products", { expire: 0 });
     return NextResponse.json(updated);
   } catch {
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
@@ -44,6 +46,7 @@ export async function DELETE(_req: Request, { params }: Ctx) {
   try {
     const ok = await deleteProduct(id);
     if (!ok) return NextResponse.json({ error: "Introuvable" }, { status: 404 });
+    revalidateTag("products", { expire: 0 });
     return new Response(null, { status: 204 });
   } catch {
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });

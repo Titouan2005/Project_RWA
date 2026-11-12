@@ -1,0 +1,325 @@
+
+> my-app@0.1.0 test:e2e
+> playwright test
+
+[WebServer] ⚠ Slow filesystem detected. The benchmark took 1260ms. If /workspaces/Project_RWA/2026-DemoApp-main/.next/dev is a network drive, consider moving it to a local folder.
+[WebServer] See more: https://nextjs.org/docs/app/guides/local-development
+
+Running 15 tests using 1 worker
+
+[WebServer] [TypeError: fetch failed] {
+[WebServer]   [cause]: Error: connect ECONNREFUSED 127.0.0.1:8090
+[WebServer]       at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8090) {
+[WebServer]     errno: -111,
+[WebServer]     code: 'ECONNREFUSED',
+[WebServer]     syscall: 'connect',
+[WebServer]     address: '127.0.0.1',
+[WebServer]     port: 8090
+[WebServer]   }
+[WebServer] }
+  ✘   1 tests/e2e/app.spec.ts:5:1 › E1 créer, modifier et supprimer un laptop (7.0s)
+  ✓   2 tests/e2e/app.spec.ts:30:1 › E2 le formulaire affiche l'erreur de validation du serveur (739ms)
+[WebServer] ⨯ ClientResponseError 0: Something went wrong.
+[WebServer]     at async getProduct (lib/products.ts:33:22)
+[WebServer]     at async ProductPage (app/products/[id]/page.tsx:10:19)
+[WebServer]   31 | export async function getProduct(id: string): Promise<Product | null> {
+[WebServer]   32 |   try {
+[WebServer] > 33 |     return toProduct(await getPb().collection("laptops").getOne(id));
+[WebServer]      |                      ^
+[WebServer]   34 |   } catch (e) {
+[WebServer]   35 |     if (isNotFound(e)) return null;
+[WebServer]   36 |     throw e; {
+[WebServer]   url: '',
+[WebServer]   status: 0,
+[WebServer]   response: {},
+[WebServer]   isAbort: false,
+[WebServer]   originalError: [TypeError: fetch failed] {
+[WebServer]     [cause]: Error: connect ECONNREFUSED 127.0.0.1:8090
+[WebServer]         at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8090) {
+[WebServer]       errno: -111,
+[WebServer]       code: 'ECONNREFUSED',
+[WebServer]       syscall: 'connect',
+[WebServer]       address: '127.0.0.1',
+[WebServer]       port: 8090
+[WebServer]     }
+[WebServer]   },
+[WebServer]   digest: '1460008483',
+[WebServer]   [cause]: [TypeError: fetch failed] {
+[WebServer]     [cause]: Error: connect ECONNREFUSED 127.0.0.1:8090
+[WebServer]         at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8090) {
+[WebServer]       errno: -111,
+[WebServer]       code: 'ECONNREFUSED',
+[WebServer]       syscall: 'connect',
+[WebServer]       address: '127.0.0.1',
+[WebServer]       port: 8090
+[WebServer]     }
+[WebServer]   }
+[WebServer] }
+[WebServer] [browser] Uncaught ClientResponseError 0: Something went wrong.
+[WebServer]     at getProduct (lib/products.ts:33:22)
+[WebServer]     at ProductPage (app/products/[id]/page.tsx:10:19)
+[WebServer]   31 | export async function getProduct(id: string): Promise<Product | null> {
+[WebServer]   32 |   try {
+[WebServer] > 33 |     return toProduct(await getPb().collection("laptops").getOne(id));
+[WebServer]      |                      ^
+[WebServer]   34 |   } catch (e) {
+[WebServer]   35 |     if (isNotFound(e)) return null;
+[WebServer]   36 |     throw e;
+  ✘   3 tests/e2e/app.spec.ts:39:1 › E3 une page inexistante affiche Page introuvable (6.0s)
+  ✓   4 tests/e2e/app.spec.ts:44:1 › E3 la page d'accueil affiche le texte venant de Redis (635ms)
+  ✘   5 tests/e2e/app.spec.ts:50:1 › E3 la navigation relie les pages principales (30.0s)
+[WebServer] [TypeError: fetch failed] {
+[WebServer]   [cause]: Error: connect ECONNREFUSED 127.0.0.1:8090
+[WebServer]       at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8090) {
+[WebServer]     errno: -111,
+[WebServer]     code: 'ECONNREFUSED',
+[WebServer]     syscall: 'connect',
+[WebServer]     address: '127.0.0.1',
+[WebServer]     port: 8090
+[WebServer]   }
+[WebServer] }
+  ✓   6 tests/e2e/app.spec.ts:60:1 › E4 la page admin affiche les deux graphiques (1.3s)
+[WebServer] [TypeError: fetch failed] {
+[WebServer]   [cause]: Error: connect ECONNREFUSED 127.0.0.1:8090
+[WebServer]       at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8090) {
+[WebServer]     errno: -111,
+[WebServer]     code: 'ECONNREFUSED',
+[WebServer]     syscall: 'connect',
+[WebServer]     address: '127.0.0.1',
+[WebServer]     port: 8090
+[WebServer]   }
+[WebServer] }
+[WebServer] [TypeError: fetch failed] {
+[WebServer]   [cause]: Error: connect ECONNREFUSED 127.0.0.1:8090
+[WebServer]       at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8090) {
+[WebServer]     errno: -111,
+[WebServer]     code: 'ECONNREFUSED',
+[WebServer]     syscall: 'connect',
+[WebServer]     address: '127.0.0.1',
+[WebServer]     port: 8090
+[WebServer]   }
+[WebServer] }
+  ✓   7 tests/e2e/app.spec.ts:69:3 › E5 API › liste les laptops (34ms)
+  ✓   8 tests/e2e/app.spec.ts:75:3 › E5 API › refuse un corps invalide avec 400 (25ms)
+  ✘   9 tests/e2e/app.spec.ts:80:3 › E5 API › renvoie 404 pour un id inconnu (639ms)
+  ✘  10 tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange % (55ms)
+  ✘  11 tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange * (63ms)
+  ✘  12 tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange ' OR 1=1 -- (65ms)
+  ✘  13 tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange <script>alert(1)</script> (61ms)
+  ✘  14 tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange 😀💻 (71ms)
+  ✘  15 tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange 日本語 (72ms)
+
+
+  1) tests/e2e/app.spec.ts:5:1 › E1 créer, modifier et supprimer un laptop ─────────────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'E2E1794444644490 Modele Test' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: 'E2E1794444644490 Modele Test' }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: 'E2E1794444644490 Modele Test' })
+
+
+      14 |   await page.getByRole("button", { name: "Ajouter" }).click();
+      15 |
+    > 16 |   await expect(page.getByRole("heading", { name: `${brand} Modele Test` })).toBeVisible();
+         |                                                                             ^
+      17 |   await expect(page.getByText("Prix : 999 €")).toBeVisible();
+      18 |
+      19 |   await page.getByRole("link", { name: "Modifier" }).click();
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:16:77
+
+    Error Context: test-results/app-E1-créer-modifier-et-supprimer-un-laptop/error-context.md
+
+  2) tests/e2e/app.spec.ts:39:1 › E3 une page inexistante affiche Page introuvable ─────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('heading', { name: 'Page introuvable' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('heading', { name: 'Page introuvable' }) with timeout 5000ms
+      - waiting for getByRole('heading', { name: 'Page introuvable' })
+
+
+      39 | test("E3 une page inexistante affiche Page introuvable", async ({ page }) => {
+      40 |   await page.goto("/products/idinexistant123");
+    > 41 |   await expect(page.getByRole("heading", { name: "Page introuvable" })).toBeVisible();
+         |                                                                         ^
+      42 | });
+      43 |
+      44 | test("E3 la page d'accueil affiche le texte venant de Redis", async ({ page }) => {
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:41:73
+
+    Error Context: test-results/app-E3-une-page-inexistante-affiche-Page-introuvable/error-context.md
+
+  3) tests/e2e/app.spec.ts:50:1 › E3 la navigation relie les pages principales ─────────────────────
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('link', { name: 'Produits' })
+
+
+      50 | test("E3 la navigation relie les pages principales", async ({ page }) => {
+      51 |   await page.goto("/");
+    > 52 |   await page.getByRole("link", { name: "Produits" }).click();
+         |                                                      ^
+      53 |   await expect(page).toHaveURL(/\/products$/);
+      54 |   await page.getByRole("link", { name: "Ajouter" }).click();
+      55 |   await expect(page).toHaveURL(/\/products\/new$/);
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:52:54
+
+    Error Context: test-results/app-E3-la-navigation-relie-les-pages-principales/error-context.md
+
+  4) tests/e2e/app.spec.ts:80:3 › E5 API › renvoie 404 pour un id inconnu ──────────────────────────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 404
+    Received: 500
+
+      79 |
+      80 |   test("renvoie 404 pour un id inconnu", async ({ request }) => {
+    > 81 |     expect((await request.get("/api/products/idinexistant123")).status()).toBe(404);
+         |                                                                           ^
+      82 |   });
+      83 |
+      84 |   for (const weird of ["%", "*", "' OR 1=1 --", "<script>alert(1)</script>", "😀💻", "日本語"]) {
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:81:75
+
+    Error Context: test-results/app-E5-API-renvoie-404-pour-un-id-inconnu/error-context.md
+
+  5) tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange % ─────────────────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      87 |         data: { brand: weird, model: weird, price: 10, stock: 1 },
+      88 |       });
+    > 89 |       expect(created.status()).toBe(201);
+         |                                ^
+      90 |       const product = await created.json();
+      91 |       expect(product.brand).toBe(weird);
+      92 |       expect((await request.delete(`/api/products/${product.id}`)).status()).toBe(204);
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:89:32
+
+    Error Context: test-results/app-E5-API-stocke-puis-supprime-le-texte-étrange-/error-context.md
+
+  6) tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange * ─────────────────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      87 |         data: { brand: weird, model: weird, price: 10, stock: 1 },
+      88 |       });
+    > 89 |       expect(created.status()).toBe(201);
+         |                                ^
+      90 |       const product = await created.json();
+      91 |       expect(product.brand).toBe(weird);
+      92 |       expect((await request.delete(`/api/products/${product.id}`)).status()).toBe(204);
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:89:32
+
+    Error Context: test-results/app-E5-API-stocke-puis-supprime-le-texte-étrange-/error-context.md
+
+  7) tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange ' OR 1=1 -- ───────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      87 |         data: { brand: weird, model: weird, price: 10, stock: 1 },
+      88 |       });
+    > 89 |       expect(created.status()).toBe(201);
+         |                                ^
+      90 |       const product = await created.json();
+      91 |       expect(product.brand).toBe(weird);
+      92 |       expect((await request.delete(`/api/products/${product.id}`)).status()).toBe(204);
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:89:32
+
+    Error Context: test-results/app-E5-API-stocke-puis-supprime-le-texte-étrange-OR-1-1---/error-context.md
+
+  8) tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange <script>alert(1)</script> 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      87 |         data: { brand: weird, model: weird, price: 10, stock: 1 },
+      88 |       });
+    > 89 |       expect(created.status()).toBe(201);
+         |                                ^
+      90 |       const product = await created.json();
+      91 |       expect(product.brand).toBe(weird);
+      92 |       expect((await request.delete(`/api/products/${product.id}`)).status()).toBe(204);
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:89:32
+
+    Error Context: test-results/app-E5-API-stocke-puis-sup-b3adb-ange-script-alert-1-script-/error-context.md
+
+  9) tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange 😀💻 ──────────────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      87 |         data: { brand: weird, model: weird, price: 10, stock: 1 },
+      88 |       });
+    > 89 |       expect(created.status()).toBe(201);
+         |                                ^
+      90 |       const product = await created.json();
+      91 |       expect(product.brand).toBe(weird);
+      92 |       expect((await request.delete(`/api/products/${product.id}`)).status()).toBe(204);
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:89:32
+
+    Error Context: test-results/app-E5-API-stocke-puis-supprime-le-texte-étrange-😀💻/error-context.md
+
+  10) tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange 日本語 ──────────────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 201
+    Received: 500
+
+      87 |         data: { brand: weird, model: weird, price: 10, stock: 1 },
+      88 |       });
+    > 89 |       expect(created.status()).toBe(201);
+         |                                ^
+      90 |       const product = await created.json();
+      91 |       expect(product.brand).toBe(weird);
+      92 |       expect((await request.delete(`/api/products/${product.id}`)).status()).toBe(204);
+        at /workspaces/Project_RWA/2026-DemoApp-main/tests/e2e/app.spec.ts:89:32
+
+    Error Context: test-results/app-E5-API-stocke-puis-supprime-le-texte-étrange-日本語/error-context.md
+
+  10 failed
+    tests/e2e/app.spec.ts:5:1 › E1 créer, modifier et supprimer un laptop ──────────────────────────
+    tests/e2e/app.spec.ts:39:1 › E3 une page inexistante affiche Page introuvable ──────────────────
+    tests/e2e/app.spec.ts:50:1 › E3 la navigation relie les pages principales ──────────────────────
+    tests/e2e/app.spec.ts:80:3 › E5 API › renvoie 404 pour un id inconnu ───────────────────────────
+    tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange % ──────────────────
+    tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange * ──────────────────
+    tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange ' OR 1=1 -- ────────
+    tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange <script>alert(1)</script> 
+    tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange 😀💻 ───────────────
+    tests/e2e/app.spec.ts:85:5 › E5 API › stocke puis supprime le texte étrange 日本語 ────────────────
+  5 passed (1.1m)
+
+To open last HTML report run:
+[36m[39m
+[36m  npx playwright show-report[39m
+[36m[39m

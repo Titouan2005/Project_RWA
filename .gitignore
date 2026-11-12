@@ -6,3 +6,5 @@ pb_data/
 **/pocketbase/pocketbase
 next-env.d.ts
 coverage/
+playwright-report/
+test-results/

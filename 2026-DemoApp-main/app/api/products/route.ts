@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createProduct, listProducts } from "@/lib/products";
 import { validateProduct } from "@/lib/validation";
+import { revalidateTag } from "next/cache";
 
 export async function GET() {
   try {
@@ -24,7 +25,9 @@ export async function POST(request: Request) {
   }
 
   try {
-    return NextResponse.json(await createProduct(result.data), { status: 201 });
+    const created = await createProduct(result.data);
+    revalidateTag("products", { expire: 0 });
+    return NextResponse.json(created, { status: 201 });
   } catch {
     return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
   }

@@ -18,8 +18,14 @@ function isNotFound(e: unknown) {
 }
 
 export async function listProducts(): Promise<Product[]> {
-  const records = await getPb().collection("laptops").getFullList({ sort: "brand,model" });
-  return records.map(toProduct);
+  const base = process.env.PB_URL ?? "http://127.0.0.1:8090";
+  const res = await fetch(
+    `${base}/api/collections/laptops/records?perPage=500&sort=brand,model`,
+    { next: { tags: ["products"], revalidate: 300 } }
+  );
+  if (!res.ok) throw new Error("PocketBase error");
+  const data = await res.json();
+  return (data.items as RecordModel[]).map(toProduct);
 }
 
 export async function getProduct(id: string): Promise<Product | null> {
