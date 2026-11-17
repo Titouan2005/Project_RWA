@@ -1,0 +1,15 @@
+{
+  "name": "Project_RWA",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:22",
+  "forwardPorts": [3000, 8090],
+  "portsAttributes": {
+    "3000": { "label": "Next.js" },
+    "8090": { "label": "PocketBase" }
+  },
+  "postCreateCommand": "cd 2026-DemoApp-main && npm install --legacy-peer-deps && bash scripts/setup-pocketbase.sh && npx playwright install --with-deps chromium",
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint", "vitest.explorer", "ms-playwright.playwright"]
+    }
+  }
+}

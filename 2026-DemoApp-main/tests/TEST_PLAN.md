@@ -7,7 +7,7 @@ The tests were defined with the help of an AI (see tests/AI_PROMPTS.md).
 - lib/validation.ts: the most critical business rule, every write goes through it
 - lib/products.ts: PocketBase access, the 404 case and other errors
 - lib/pocketbase.ts: the client uses the right URL
-- lib/stats.ts: chart calculations
+- lib/stats.ts: stock per brand used by both charts
 - lib/redis.ts and lib/homeContent.ts: home page content and the cases where Redis fails
 - app/api/**: HTTP status codes (200, 201, 204, 400, 404, 500) and cache invalidation
 - components/**: form, delete button, charts
@@ -30,7 +30,7 @@ accents and unicode, Japanese, emojis, line breaks, tabs, backslash.
 | V5 | validation | strange strings (list above) | accepted as text |
 | V6 | validation | invalid fields (empty, too long, wrong type, NaN, Infinity, negative, decimal) | error on the right field |
 | V7 | validation | body is not an object (null, array, text, number) | "JSON object" error |
-| S1 | stats | stock summed by brand, empty list, price sorting | correct values |
+| S1 | stats | stock summed by brand, empty list, brand with 0 stock, input not modified | correct values |
 | B1 | pocketbase | default URL and PB_URL variable | correct base URL |
 | P1 | products | list, read, create, update, delete | data correctly mapped |
 | P2 | products | PocketBase 404 | null / false |
@@ -41,7 +41,7 @@ accents and unicode, Japanese, emojis, line breaks, tabs, backslash.
 | A2 | API [id] | GET 200/404/500, PUT 200/400/404/500, DELETE 204/404/500 | right code + invalidation |
 | C1 | ProductForm | add, edit, API errors, strange strings | correct request, error message |
 | C2 | DeleteButton | cancel, success, failure | correct behaviour |
-| C3 | charts | data passed to the chart libraries | correct data |
+| C3 | charts | stock per brand passed to Recharts (bar) and Chart.js (line), empty list | correct data |
 | G1 | pages | home, list, detail, edit, add, admin, 404 | expected rendering |
 | E1 | e2e | create, edit, delete a laptop | full journey works |
 | E2 | e2e | invalid form | server error message visible |

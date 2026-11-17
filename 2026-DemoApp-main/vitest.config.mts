@@ -12,7 +12,8 @@ export default defineConfig({
     coverage: {
       provider: "v8",
       include: ["lib/**/*.ts", "app/**/*.{ts,tsx}", "components/**/*.tsx"],
-      exclude: ["app/layout.tsx", "components/AdminCharts.tsx", "lib/types.ts"],      reporter: ["text", "html"],
+      exclude: ["app/layout.tsx", "components/AdminCharts.tsx", "lib/types.ts"],
+      reporter: ["text", "html"],
       thresholds: { lines: 90, functions: 90, statements: 90, branches: 85 },
     },
   },

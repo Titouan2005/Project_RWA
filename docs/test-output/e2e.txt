@@ -5,23 +5,23 @@
 
 Running 15 tests using 1 worker
 
-  ✓   1 tests/e2e/app.spec.ts:5:1 › E1 create, edit and delete a laptop (8.0s)
-  ✓   2 tests/e2e/app.spec.ts:30:1 › E2 the form shows the server validation error (893ms)
-  ✓   3 tests/e2e/app.spec.ts:39:1 › E3 a page that does not exist shows Page not found (1.1s)
-  ✓   4 tests/e2e/app.spec.ts:44:1 › E4 the admin page shows both charts (1.5s)
-  ✓   5 tests/e2e/app.spec.ts:53:3 › E5 API › lists the laptops (56ms)
-  ✓   6 tests/e2e/app.spec.ts:59:3 › E5 API › rejects an invalid body with 400 (16ms)
-  ✓   7 tests/e2e/app.spec.ts:64:3 › E5 API › returns 404 for an unknown id (63ms)
-  ✓   8 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text % (55ms)
-  ✓   9 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text * (55ms)
-  ✓  10 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text ' OR 1=1 -- (73ms)
-  ✓  11 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text <script>alert(1)</script> (31ms)
-  ✓  12 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text 😀💻 (44ms)
-  ✓  13 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text 日本語 (28ms)
-  ✓  14 tests/e2e/app.spec.ts:81:1 › E6 the home page shows the text from Redis (737ms)
-  ✓  15 tests/e2e/app.spec.ts:87:1 › E7 the navigation links the main pages (1.1s)
+  ✓   1 tests/e2e/app.spec.ts:5:1 › E1 create, edit and delete a laptop (5.6s)
+  ✓   2 tests/e2e/app.spec.ts:30:1 › E2 the form shows the server validation error (842ms)
+  ✓   3 tests/e2e/app.spec.ts:39:1 › E3 a page that does not exist shows Page not found (1.0s)
+  ✓   4 tests/e2e/app.spec.ts:44:1 › E4 the admin page shows both charts (1.7s)
+  ✓   5 tests/e2e/app.spec.ts:53:3 › E5 API › lists the laptops (76ms)
+  ✓   6 tests/e2e/app.spec.ts:59:3 › E5 API › rejects an invalid body with 400 (45ms)
+  ✓   7 tests/e2e/app.spec.ts:64:3 › E5 API › returns 404 for an unknown id (104ms)
+  ✓   8 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text % (134ms)
+  ✓   9 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text * (141ms)
+  ✓  10 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text ' OR 1=1 -- (117ms)
+  ✓  11 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text <script>alert(1)</script> (111ms)
+  ✓  12 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text 😀💻 (50ms)
+  ✓  13 tests/e2e/app.spec.ts:69:5 › E5 API › stores then deletes the strange text 日本語 (94ms)
+  ✓  14 tests/e2e/app.spec.ts:81:1 › E6 the home page shows the text from Redis (1.0s)
+  ✓  15 tests/e2e/app.spec.ts:87:1 › E7 the navigation links the main pages (1.2s)
 
-  15 passed (35.3s)
+  15 passed (21.5s)
 
 To open last HTML report run:
 [36m[39m

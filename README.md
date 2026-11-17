@@ -1,107 +1,83 @@
-# RWA_Project
+# Laptop Manager (RWA Assignment 1)
 
-## Assignment 1:
+A product management web application for laptops, built with Next.js (App Router, TypeScript) and PocketBase, with the home page text served from Redis.
 
-In this assignment, you are tasked with designing and developing a Product Management Web Application using Next.js and PocketBase.
+The original brief is in [docs/ASSIGNMENT.md](docs/ASSIGNMENT.md).
 
-As a proof of concept, ten different laptop models should be shown in the app.
+## Features
 
-The application will allow users to add, view, update, and delete laptops through a user-friendly web interface. Product information will be stored in a PocketBase database and accessed using API routes.
+- Home page whose text is stored in Redis (key `home:content`) and read on every load
+- Products list, add, edit, view and delete pages
+- REST API routes: `GET/POST /api/products`, `GET/PUT/DELETE /api/products/[id]`, with server-side validation
+- `/admin` page with two charts of the stock per brand: a bar chart (Recharts) and a line chart (Chart.js)
+- Two optimisations: Next.js data cache with on-demand invalidation, and lazy loading of the chart libraries ([docs/optimisations.md](docs/optimisations.md))
+- Unit tests (Vitest + React Testing Library, 100% coverage) and end-to-end tests (Playwright)
 
-With this basic app, the focus then shifts to using caches and optimising app delivery to the user.  To ensure the developed solution is complete, a collection of AI-defined unit tests should also be created to test each page of the app with varying inputs.
+## Tech stack
 
+| Part | Choice |
+|------|--------|
+| Framework | Next.js 16 (App Router, Turbopack), React 19, TypeScript |
+| Database | PocketBase 0.40.6, collection `laptops` (brand, model, price, description, stock) |
+| Text cache | Redis (Redis Cloud free tier) with the `redis` Node client |
+| Charts | Recharts (bar), Chart.js with react-chartjs-2 (line) |
+| Tests | Vitest, React Testing Library, jsdom, v8 coverage, Playwright |
 
+## Project structure
 
+```
+Project_RWA/
+├── .devcontainer/            Codespaces configuration
+├── docs/                     assignment, optimisations, chart comparison, test outputs
+└── 2026-DemoApp-main/        the Next.js app
+    ├── app/                  pages and API route handlers
+    ├── components/           ProductForm, DeleteButton, charts
+    ├── lib/                  PocketBase, Redis, validation, products service, stats
+    ├── pocketbase/           pb_migrations (the binary and pb_data are not committed)
+    ├── scripts/              PocketBase setup, seed scripts, home page text
+    └── tests/                TEST_PLAN.md, AI_PROMPTS.md, unit/, e2e/
+```
 
-## App functionality
+## Getting started
 
-Create a responsive website using Next.js that includes:
+The repository is set up for GitHub Codespaces: opening it runs `npm install`, downloads PocketBase and installs the Playwright browser. On another machine, run those three steps by hand (see `.devcontainer/devcontainer.json`).
 
-Home Page: An introduction to the application.
-Products List Page: Display all products stored in the database.
-Add Product Page: A form for adding new products.
-Edit Product Page: Allow users to update existing products.
-View Single Product Page: Display information about a selected product.
+1. Environment variables: in `2026-DemoApp-main`, copy `.env.example` to `.env.local` and set `REDIS_URL` to your Redis connection string.
 
+2. Start PocketBase (terminal 1):
+   ```
+   cd 2026-DemoApp-main/pocketbase
+   ./pocketbase serve
+   ```
+   The migration creates the `laptops` collection. Open `http://127.0.0.1:8090/_/` once to create the admin account.
 
+3. Seed the data (terminal 2):
+   ```
+   cd 2026-DemoApp-main
+   node scripts/seed-laptops.mjs
+   node --env-file=.env.local scripts/seed-redis.mjs
+   ```
+   The laptop seed can be run again safely: existing laptops are updated, missing ones are created.
 
-## Data storage
+4. Start the app:
+   ```
+   npm run dev
+   ```
+   Then open port 3000.
 
-All product data should be persisted in the PocketBase database. Each record in the database should have the following attributes:
+## Tests
 
-brand (Create 4 Dell, 4 Lenovo, and 2 Acer)
-model
-price
-description
+```
+npm test                 # unit tests
+npm run test:coverage    # unit tests with coverage report
+npm run test:e2e         # end-to-end tests (PocketBase and Redis must be running)
+```
 
+Stop any running `next dev` before the end-to-end tests: Playwright starts its own server.
 
+The test plan is in [tests/TEST_PLAN.md](2026-DemoApp-main/tests/TEST_PLAN.md) and the AI prompts used to define the tests are in [tests/AI_PROMPTS.md](2026-DemoApp-main/tests/AI_PROMPTS.md). The latest outputs are saved in `docs/test-output/`.
 
-## Text Caching
+## Documentation
 
-To aid the delivery of text content on the app homepage, Redis should be used.  A Redis server can be obtained at https://redis.io for free.
-
-Using this cache, all text on the app homepage should be stored in the Redis cache and called when the app loads the app homepage.
-
-
-## Optimisation
-
-To optimise delivery of the app to users, two different optimisation approaches should be implemented for the app (excluding Redis).
-
-Pick any two optimisation approaches, and document how you implemented them.
-
-
-## Testing
-
-To test the developed web application, create a collection of Unit tests for the app.
-
-Each test should be stored in the tests folder of the project. A test plan should first be created to outline what is being tested and the approach taken.
-
-To automate the testing process, use an AI model to define different types of tests for the app. Ensure complete coverage of the app code.
-
-
-When creating these tests for a page such as the add product page, we would create tests such as:
-
-Check the add product page exists
-Check we can add data into all the fields
-Check we can submit the data.
-Check the data exists in the database.
-Check what happens when we enter different input strings into the fields on the page (long, short, numbers, strings, wildcards, strange characters, etc.)
-
-
-## A-Grade Stats page
-
-To get a higher mark, inside the app, add another page called /admin.
-
-On this page, make a call to the database to get the list of all products. With this data, create a bar graph showing the quantity of each brand in stock.
-
-After this, pick a different library and implement a line graph.
-
-In your document, describe the core differences between the two graph types and how they are implemented.
-
-
-
-
-## Deliverable
-
-Once complete, upload a single PDF with the following headings:
-
-Git- A link to the GitHub repository containing your project source code.
-
-App screenshots- Screenshots of the completed application running in your browser.
-
-Test and test output- A copy of the tests you created and output of each test.
-
-Redis Cache- Screenshot of your Redis cache database and your app showing it working.
-
-Database output - A screenshot of your product data in the database.
-
-Optimisation implementation - Description of the two optimisations you chose and a description of how you did it.
-
-A-grade Graph outputs - For the A-grade, capture screenshots of your two graph libraries showing the total amount of each laptop brand in stock.
-
-
-## Demo
-
-Once all your work has been submitted, you are required to demo your project and answer questions about how you implemented different aspects of the app
-
-To prepare, ensure you understand everything you did and the rationale for each choice made.
+- [docs/optimisations.md](docs/optimisations.md): the two optimisations, how they were implemented and measured
+- [docs/CHARTS_COMPARISON.md](docs/CHARTS_COMPARISON.md): Recharts vs Chart.js

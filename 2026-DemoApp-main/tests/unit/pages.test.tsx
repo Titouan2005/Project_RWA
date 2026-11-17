@@ -99,8 +99,7 @@ describe("pages", () => {
     vi.mocked(listProducts).mockResolvedValue([dell, dell2, acer]);
     render(await AdminPage());
     const props = JSON.parse(screen.getByTestId("charts").textContent ?? "{}");
-    expect(props.stock).toEqual([{ brand: "Dell", stock: 13 }, { brand: "Acer", stock: 18 }]);
-    expect(props.prices[0]).toEqual({ label: "Acer Aspire 5", price: 549 });
+    expect(props).toEqual({ stock: [{ brand: "Dell", stock: 13 }, { brand: "Acer", stock: 18 }] });
   });
 
   it("G1 404: shows the message", () => {

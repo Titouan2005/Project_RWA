@@ -7,9 +7,3 @@ export function stockByBrand(products: Product[]) {
   }
   return Object.entries(totals).map(([brand, stock]) => ({ brand, stock }));
 }
-
-export function pricePerModel(products: Product[]) {
-  return products
-    .map((p) => ({ label: `${p.brand} ${p.model}`, price: p.price }))
-    .sort((a, b) => a.price - b.price);
-}

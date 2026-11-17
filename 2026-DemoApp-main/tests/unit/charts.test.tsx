@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import PriceLineChart from "@/components/PriceLineChart";
 import StockBarChart from "@/components/StockBarChart";
+import StockLineChart from "@/components/StockLineChart";
 
 vi.mock("react-chartjs-2", () => ({
   Line: (props: { data: unknown }) => <pre data-testid="line">{JSON.stringify(props.data)}</pre>,
@@ -20,18 +20,27 @@ vi.mock("recharts", () => {
   };
 });
 
-describe("charts", () => {
-  it("C3 PriceLineChart passes labels and prices to Chart.js", () => {
-    render(<PriceLineChart data={[{ label: "Acer Aspire", price: 549 }, { label: "Dell XPS", price: 1199 }]} />);
-    const chartData = JSON.parse(screen.getByTestId("line").textContent ?? "{}");
-    expect(chartData.labels).toEqual(["Acer Aspire", "Dell XPS"]);
-    expect(chartData.datasets[0].data).toEqual([549, 1199]);
-    expect(chartData.datasets[0].label).toBe("Price (€)");
-  });
+const data = [{ brand: "Dell", stock: 38 }, { brand: "Lenovo", stock: 45 }, { brand: "Acer", stock: 27 }];
 
-  it("C3 StockBarChart passes the data to Recharts", () => {
-    const data = [{ brand: "Dell", stock: 13 }];
+describe("charts", () => {
+  it("C3 StockBarChart passes the stock per brand to Recharts", () => {
     render(<StockBarChart data={data} />);
     expect(JSON.parse(screen.getByTestId("bar").getAttribute("data-json") ?? "[]")).toEqual(data);
+  });
+
+  it("C3 StockLineChart passes brands as labels and stock as values to Chart.js", () => {
+    render(<StockLineChart data={data} />);
+    const chartData = JSON.parse(screen.getByTestId("line").textContent ?? "{}");
+    expect(chartData.labels).toEqual(["Dell", "Lenovo", "Acer"]);
+    expect(chartData.datasets[0].data).toEqual([38, 45, 27]);
+    expect(chartData.datasets[0].label).toBe("Stock");
+  });
+
+  it("C3 both charts work with an empty list", () => {
+    render(<StockLineChart data={[]} />);
+    const chartData = JSON.parse(screen.getByTestId("line").textContent ?? "{}");
+    expect(chartData.labels).toEqual([]);
+    render(<StockBarChart data={[]} />);
+    expect(screen.getByTestId("bar").getAttribute("data-json")).toBe("[]");
   });
 });
