@@ -1,4 +1,17 @@
-/* app/globals.css */
+/* Global styles: plain CSS, no framework. Mobile first, then wider screens. */
+
+:root {
+  --bg: #f4f5f7;
+  --card: #ffffff;
+  --text: #1f2328;
+  --muted: #5f6b7a;
+  --border: #e3e6ea;
+  --primary: #2563eb;
+  --primary-dark: #1d4ed8;
+  --danger: #dc2626;
+  --radius: 14px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 4px 12px rgba(0, 0, 0, 0.04);
+}
 
 * {
   box-sizing: border-box;
@@ -7,126 +20,249 @@
 html,
 body {
   margin: 0;
-  min-height: 100%;
+  padding: 0;
 }
 
 body {
-  background: #f7f7f8;
-  color: #171717;
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-}
-
-.content {
-  width: 100%;
-  max-width: 600px;
-  min-height: 100vh;
-  margin: 0 auto;
-  padding-bottom: 100px;
-}
-
-.page {
-  padding: 56px 22px 24px;
-}
-
-.eyebrow {
-  margin: 0 0 10px;
-  color: #777;
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-}
-
-h1 {
-  margin: 0;
-  font-size: 36px;
-  letter-spacing: -1.2px;
-}
-
-.description {
-  margin: 12px 0 30px;
-  color: #6b6b6b;
-  font-size: 16px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.5;
 }
 
-.card {
-  padding: 22px;
-  background: white;
-  border: 1px solid #e8e8e8;
-  border-radius: 20px;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.04);
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  /* leaves room for the fixed navigation bar at the bottom */
+  padding: 24px 16px 120px;
 }
 
-.card h2 {
-  margin: 0 0 8px;
-  font-size: 18px;
+h1 {
+  font-size: 1.9rem;
+  margin: 0 0 16px;
+}
+
+h2 {
+  font-size: 1.15rem;
+  margin: 0 0 12px;
+}
+
+a {
+  color: var(--primary);
+}
+
+/* ---------- Pages and cards ---------- */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.page > h2 {
+  color: var(--muted);
+  font-weight: 500;
+  margin: -8px 0 0;
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
 }
 
 .card p {
-  margin: 0;
-  color: #777;
+  margin: 4px 0 0;
+  color: var(--muted);
 }
 
-.searchInput {
-  width: 100%;
-  padding: 16px 18px;
-  border: 1px solid #ddd;
-  border-radius: 16px;
-  background: white;
-  color: #171717;
-  font: inherit;
-  outline: none;
+.card strong {
+  font-size: 1.05rem;
+  color: var(--text);
 }
 
-.searchInput:focus {
-  border-color: #999;
+.page footer {
+  color: var(--muted);
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 8px;
 }
 
-/* Mobile bottom navigation */
-.bottomNav {
-  position: fixed;
-  z-index: 100;
-  right: 16px;
-  bottom: max(14px, env(safe-area-inset-bottom));
-  left: 16px;
+/* ---------- Products list: grid of cards ---------- */
 
-  display: flex;
-  max-width: 568px;
-  margin: auto;
-  padding: 8px;
-
-  background: rgba(255, 255, 255, 0.94);
-  border: 1px solid #e8e8e8;
-  border-radius: 22px;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(16px);
+.page > a[href="/products/new"] {
+  align-self: flex-start;
 }
 
-.bottomNav a {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
+@media (min-width: 640px) {
+  /* the cards of the list page are laid out in a responsive grid */
+  .page:has(> a[href="/products/new"]) {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .page:has(> a[href="/products/new"]) > h1,
+  .page:has(> a[href="/products/new"]) > a[href="/products/new"] {
+    grid-column: 1 / -1;
+  }
+}
 
-  padding: 8px;
-  border-radius: 14px;
-
-  color: #666;
-  font-size: 11px;
-  font-weight: 600;
+.card a {
   text-decoration: none;
 }
 
-.bottomNav a:active {
-  background: #f0f0f0;
-  transform: scale(0.97);
+.card a:hover strong {
+  color: var(--primary);
 }
 
-.bottomNav span {
-  color: #171717;
-  font-size: 22px;
+/* ---------- Buttons and button-like links ---------- */
+
+button,
+.page > a[href="/products/new"],
+.page > a[href$="/edit"] {
+  display: inline-block;
+  font: inherit;
+  font-weight: 600;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  background: var(--primary);
+  color: #fff;
+  transition: background 0.15s;
+}
+
+button:hover,
+.page > a[href="/products/new"]:hover,
+.page > a[href$="/edit"]:hover {
+  background: var(--primary-dark);
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+/* Delete button on the product page */
+.page > button {
+  background: var(--danger);
+}
+
+.page > button:hover {
+  background: #b91c1c;
+}
+
+.page > a[href$="/edit"],
+.page > button {
+  align-self: flex-start;
+}
+
+/* Edit link and Delete button side by side */
+.page:has(> a[href$="/edit"]) {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: start;
+  column-gap: 12px;
+}
+
+.page:has(> a[href$="/edit"]) > h1,
+.page:has(> a[href$="/edit"]) > .card {
+  grid-column: 1 / -1;
+}
+
+/* ---------- Form ---------- */
+
+form.card {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  max-width: 640px;
+}
+
+form.card label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+form.card input,
+form.card textarea {
+  font: inherit;
+  font-weight: 400;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fafbfc;
+  width: 100%;
+}
+
+form.card input:focus,
+form.card textarea:focus {
+  outline: 2px solid var(--primary);
+  outline-offset: 1px;
+  background: #fff;
+}
+
+form.card textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+form.card p {
+  margin: 0;
+  font-weight: 600;
+}
+
+form.card button {
+  justify-self: start;
+}
+
+@media (min-width: 640px) {
+  /* brand / model and price / stock on two columns on wider screens */
+  form.card {
+    grid-template-columns: 1fr 1fr;
+  }
+  form.card label:has(textarea),
+  form.card p,
+  form.card button {
+    grid-column: 1 / -1;
+  }
+}
+
+/* ---------- Bottom navigation ---------- */
+
+.bottomNav {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(560px, calc(100% - 32px));
+  display: flex;
+  justify-content: space-around;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  padding: 6px;
+  z-index: 10;
+}
+
+.bottomNav a {
+  flex: 1;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 999px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+}
+
+.bottomNav a:hover {
+  background: var(--bg);
+  color: var(--text);
 }
