@@ -1,8 +1,6 @@
-# Laptop Manager (RWA Assignment 1)
+# Laptop Manager
 
 A product management web application for laptops, built with Next.js (App Router, TypeScript) and PocketBase, with the home page text served from Redis.
-
-The original brief is in [docs/ASSIGNMENT.md](docs/ASSIGNMENT.md).
 
 ## Features
 
@@ -10,7 +8,7 @@ The original brief is in [docs/ASSIGNMENT.md](docs/ASSIGNMENT.md).
 - Products list, add, edit, view and delete pages
 - REST API routes: `GET/POST /api/products`, `GET/PUT/DELETE /api/products/[id]`, with server-side validation
 - `/admin` page with two charts of the stock per brand: a bar chart (Recharts) and a line chart (Chart.js)
-- Two optimisations: Next.js data cache with on-demand invalidation, and lazy loading of the chart libraries ([docs/optimisations.md](docs/optimisations.md))
+- Two optimisations: Next.js data cache with on-demand invalidation, and lazy loading of the chart libraries
 - Unit tests (Vitest + React Testing Library, 100% coverage) and end-to-end tests (Playwright)
 
 ## Tech stack
