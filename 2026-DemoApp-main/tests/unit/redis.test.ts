@@ -12,21 +12,21 @@ beforeEach(() => {
 });
 
 describe("getRedis", () => {
-  it("R1 crée et connecte un client au premier appel", async () => {
+  it("R1 creates and connects a client on the first call", async () => {
     const client = await getRedis();
     expect(client).toBe(fake);
     expect(createClient).toHaveBeenCalledTimes(1);
     expect(fake.connect).toHaveBeenCalledTimes(1);
   });
 
-  it("R1 réutilise le même client ensuite", async () => {
+  it("R1 reuses the same client afterwards", async () => {
     await getRedis();
     await getRedis();
     expect(createClient).toHaveBeenCalledTimes(1);
     expect(fake.connect).toHaveBeenCalledTimes(1);
   });
 
-  it("R1 logue les erreurs de Redis", async () => {
+  it("R1 logs Redis errors", async () => {
     const spy = vi.spyOn(console, "error").mockImplementation(() => {});
     await getRedis();
     const handler = fake.on.mock.calls[0][1];

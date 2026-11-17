@@ -31,7 +31,7 @@ export default function ProductForm({ product }: { product?: Product }) {
 
     if (!res.ok) {
       const data = await res.json().catch(() => ({}));
-      setErrors(data.errors ?? [data.error ?? "Erreur"]);
+      setErrors(data.errors ?? [data.error ?? "Error"]);
       setLoading(false);
       return;
     }
@@ -43,13 +43,13 @@ export default function ProductForm({ product }: { product?: Product }) {
 
   return (
     <form onSubmit={onSubmit} className="card">
-      <label>Marque <input name="brand" defaultValue={product?.brand} required /></label>
-      <label>Modèle <input name="model" defaultValue={product?.model} required /></label>
-      <label>Prix (€) <input name="price" type="number" step="0.01" min="0" defaultValue={product?.price} required /></label>
+      <label>Brand <input name="brand" defaultValue={product?.brand} required /></label>
+      <label>Model <input name="model" defaultValue={product?.model} required /></label>
+      <label>Price (€) <input name="price" type="number" step="0.01" min="0" defaultValue={product?.price} required /></label>
       <label>Stock <input name="stock" type="number" step="1" min="0" defaultValue={product?.stock ?? 0} required /></label>
       <label>Description <textarea name="description" defaultValue={product?.description} /></label>
       {errors.map((err) => <p key={err} style={{ color: "crimson" }}>{err}</p>)}
-      <button type="submit" disabled={loading}>{product ? "Enregistrer" : "Ajouter"}</button>
+      <button type="submit" disabled={loading}>{product ? "Save" : "Add"}</button>
     </form>
   );
 }

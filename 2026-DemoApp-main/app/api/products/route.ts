@@ -7,7 +7,7 @@ export async function GET() {
   try {
     return NextResponse.json(await listProducts());
   } catch {
-    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ errors: ["JSON invalide"] }, { status: 400 });
+    return NextResponse.json({ errors: ["Invalid JSON"] }, { status: 400 });
   }
 
   const result = validateProduct(body);
@@ -29,6 +29,6 @@ export async function POST(request: Request) {
     revalidateTag("products", { expire: 0 });
     return NextResponse.json(created, { status: 201 });
   } catch {
-    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

@@ -20,7 +20,7 @@ export default function PriceLineChart({ data }: { data: { label: string; price:
         labels: data.map((d) => d.label),
         datasets: [
           {
-            label: "Prix (€)",
+            label: "Price (€)",
             data: data.map((d) => d.price),
             borderColor: "#dc2626",
             tension: 0.2,

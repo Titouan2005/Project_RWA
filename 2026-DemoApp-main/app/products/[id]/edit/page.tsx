@@ -11,7 +11,7 @@ export default async function EditProductPage({ params }: { params: Promise<{ id
 
   return (
     <section className="page">
-      <h1>Modifier {product.brand} {product.model}</h1>
+      <h1>Edit {product.brand} {product.model}</h1>
       <ProductForm product={product} />
     </section>
   );

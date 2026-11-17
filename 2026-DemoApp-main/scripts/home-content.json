@@ -1,10 +1,11 @@
 {
   "title": "Laptop Manager",
   "subtitle": "Manage your laptop catalog",
-  "intro": "This application allows you to view, add, edit and delete laptops.",
+  "intro": "This application lets you view, add, edit and delete laptops.",
   "features": [
-    { "title": "Catalog" },
-    { "title": "management", "text": "Add, edit or delete a product" },
-    { "title": "Statistics" }
-  ]
+    { "title": "Catalog", "text": "Browse every laptop with its price and stock." },
+    { "title": "Management", "text": "Add, edit or delete a laptop." },
+    { "title": "Statistics", "text": "See stock by brand and price by model on the Admin page." }
+  ],
+  "footer": "RWA Assignment 1 — Next.js, PocketBase and Redis"
 }

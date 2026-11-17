@@ -8,11 +8,11 @@ afterEach(() => {
 });
 
 describe("getPb", () => {
-  it("utilise l'URL par défaut sans variable d'environnement", () => {
+  it("B1 uses the default URL without an environment variable", () => {
     delete process.env.PB_URL;
     expect(getPb().baseURL).toBe("http://127.0.0.1:8090");
   });
-  it("utilise PB_URL quand elle est définie", () => {
+  it("B1 uses PB_URL when it is set", () => {
     process.env.PB_URL = "http://pb.test:1234";
     expect(getPb().baseURL).toBe("http://pb.test:1234");
   });

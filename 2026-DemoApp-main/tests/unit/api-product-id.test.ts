@@ -19,64 +19,66 @@ const req = (method: string) => new Request("http://localhost/api/products/abc",
 beforeEach(() => vi.clearAllMocks());
 
 describe("GET /api/products/[id]", () => {
-  it("A2 renvoie 200 et le produit", async () => {
+  it("A2 returns 200 and the product", async () => {
     vi.mocked(getProduct).mockResolvedValue(saved);
     const res = await GET(req("GET"), ctx);
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual(saved);
   });
-  it("A2 renvoie 404 si introuvable", async () => {
+  it("A2 returns 404 if not found", async () => {
     vi.mocked(getProduct).mockResolvedValue(null);
-    expect((await GET(req("GET"), ctx)).status).toBe(404);
+    const res = await GET(req("GET"), ctx);
+    expect(res.status).toBe(404);
+    expect(await res.json()).toEqual({ error: "Not found" });
   });
-  it("A2 renvoie 500 en cas d'erreur", async () => {
+  it("A2 returns 500 on error", async () => {
     vi.mocked(getProduct).mockRejectedValue(new Error("x"));
     expect((await GET(req("GET"), ctx)).status).toBe(500);
   });
 });
 
 describe("PUT /api/products/[id]", () => {
-  it("A2 renvoie 200 et invalide le cache", async () => {
+  it("A2 returns 200 and invalidates the cache", async () => {
     vi.mocked(updateProduct).mockResolvedValue(saved);
     const res = await put(JSON.stringify(valid));
     expect(res.status).toBe(200);
     expect(await res.json()).toEqual(saved);
     expect(revalidateTag).toHaveBeenCalledWith("products", { expire: 0 });
   });
-  it("A2 renvoie 400 si le JSON est invalide", async () => {
-    expect((await put("{pas du json")).status).toBe(400);
+  it("A2 returns 400 if the JSON is invalid", async () => {
+    expect((await put("{not json")).status).toBe(400);
   });
-  it("A2 renvoie 400 si la validation échoue", async () => {
+  it("A2 returns 400 if validation fails", async () => {
     const res = await put(JSON.stringify({ ...valid, price: -1 }));
     expect(res.status).toBe(400);
     expect(updateProduct).not.toHaveBeenCalled();
   });
-  it("A2 renvoie 404 si introuvable", async () => {
+  it("A2 returns 404 if not found", async () => {
     vi.mocked(updateProduct).mockResolvedValue(null);
     const res = await put(JSON.stringify(valid));
     expect(res.status).toBe(404);
     expect(revalidateTag).not.toHaveBeenCalled();
   });
-  it("A2 renvoie 500 en cas d'erreur", async () => {
+  it("A2 returns 500 on error", async () => {
     vi.mocked(updateProduct).mockRejectedValue(new Error("x"));
     expect((await put(JSON.stringify(valid))).status).toBe(500);
   });
 });
 
 describe("DELETE /api/products/[id]", () => {
-  it("A2 renvoie 204 et invalide le cache", async () => {
+  it("A2 returns 204 and invalidates the cache", async () => {
     vi.mocked(deleteProduct).mockResolvedValue(true);
     const res = await DELETE(req("DELETE"), ctx);
     expect(res.status).toBe(204);
     expect(revalidateTag).toHaveBeenCalledWith("products", { expire: 0 });
   });
-  it("A2 renvoie 404 si introuvable", async () => {
+  it("A2 returns 404 if not found", async () => {
     vi.mocked(deleteProduct).mockResolvedValue(false);
     const res = await DELETE(req("DELETE"), ctx);
     expect(res.status).toBe(404);
     expect(revalidateTag).not.toHaveBeenCalled();
   });
-  it("A2 renvoie 500 en cas d'erreur", async () => {
+  it("A2 returns 500 on error", async () => {
     vi.mocked(deleteProduct).mockRejectedValue(new Error("x"));
     expect((await DELETE(req("DELETE"), ctx)).status).toBe(500);
   });

@@ -8,7 +8,7 @@ export default async function Home() {
   if (!content) {
     return (
       <section className="page">
-        <p>Contenu indisponible (Redis ne répond pas ou est vide).</p>
+        <p>Content unavailable (Redis is not responding or is empty).</p>
       </section>
     );
   }

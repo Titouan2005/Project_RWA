@@ -5,7 +5,7 @@ export const metadata = { title: "Laptop Manager" };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr">
+    <html lang="en">
       <body>
         <main>{children}</main>
         <nav className="bottomNav">

@@ -35,65 +35,67 @@ const params = (id: string) => ({ params: Promise.resolve({ id }) });
 beforeEach(() => vi.clearAllMocks());
 
 describe("pages", () => {
-  it("G1 accueil : affiche le contenu venant de Redis", async () => {
+  it("G1 home: shows the content from Redis", async () => {
     vi.mocked(getHomeContent).mockResolvedValue({
-      title: "Mon titre", subtitle: "Mon sous-titre", intro: "Intro",
-      features: [{ title: "Catalogue", text: "Texte" }], footer: "Pied",
+      title: "My title", subtitle: "My subtitle", intro: "Intro",
+      features: [{ title: "Catalog", text: "Text" }], footer: "Footer",
     });
     render(await Home());
-    expect(screen.getByRole("heading", { level: 1, name: "Mon titre" })).toBeInTheDocument();
-    expect(screen.getByText("Catalogue")).toBeInTheDocument();
-    expect(screen.getByText("Pied")).toBeInTheDocument();
+    expect(screen.getByRole("heading", { level: 1, name: "My title" })).toBeInTheDocument();
+    expect(screen.getByText("Catalog")).toBeInTheDocument();
+    expect(screen.getByText("Footer")).toBeInTheDocument();
   });
 
-  it("G1 accueil : message si Redis est indisponible", async () => {
+  it("G1 home: message if Redis is unavailable", async () => {
     vi.mocked(getHomeContent).mockResolvedValue(null);
     render(await Home());
-    expect(screen.getByText(/Contenu indisponible/)).toBeInTheDocument();
+    expect(screen.getByText(/Content unavailable/)).toBeInTheDocument();
   });
 
-  it("G1 liste : affiche chaque laptop avec un lien", async () => {
+  it("G1 list: shows each laptop with a link", async () => {
     vi.mocked(listProducts).mockResolvedValue([dell, acer]);
     render(await ProductsPage());
     expect(screen.getByRole("link", { name: /Dell XPS 13/ })).toHaveAttribute("href", "/products/abc");
     expect(screen.getByText(/549 €/)).toBeInTheDocument();
   });
 
-  it("G1 liste : fonctionne sans produit", async () => {
+  it("G1 list: works with no product", async () => {
     vi.mocked(listProducts).mockResolvedValue([]);
     render(await ProductsPage());
-    expect(screen.getByRole("heading", { name: "Produits" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Products" })).toBeInTheDocument();
   });
 
-  it("G1 détail : affiche le laptop et le lien de modification", async () => {
+  it("G1 detail: shows the laptop and the edit link", async () => {
     vi.mocked(getProduct).mockResolvedValue(dell);
     render(await ProductPage(params("abc")));
     expect(screen.getByRole("heading", { name: /Dell XPS 13/ })).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: "Modifier" })).toHaveAttribute("href", "/products/abc/edit");
+    expect(screen.getByText("Price: 1199 €")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Edit" })).toHaveAttribute("href", "/products/abc/edit");
   });
 
-  it("G1 détail : déclenche la page 404 si introuvable", async () => {
+  it("G1 detail: triggers the 404 page if not found", async () => {
     vi.mocked(getProduct).mockResolvedValue(null);
     await expect(ProductPage(params("zzz"))).rejects.toThrow("NEXT_NOT_FOUND");
   });
 
-  it("G1 modification : préremplit le formulaire", async () => {
+  it("G1 edit: pre-fills the form", async () => {
     vi.mocked(getProduct).mockResolvedValue(dell);
     render(await EditProductPage(params("abc")));
-    expect(screen.getByLabelText(/Marque/)).toHaveValue("Dell");
+    expect(screen.getByRole("heading", { name: "Edit Dell XPS 13" })).toBeInTheDocument();
+    expect(screen.getByLabelText(/Brand/)).toHaveValue("Dell");
   });
 
-  it("G1 modification : déclenche la page 404 si introuvable", async () => {
+  it("G1 edit: triggers the 404 page if not found", async () => {
     vi.mocked(getProduct).mockResolvedValue(null);
     await expect(EditProductPage(params("zzz"))).rejects.toThrow("NEXT_NOT_FOUND");
   });
 
-  it("G1 ajout : affiche le formulaire vide", () => {
+  it("G1 add: shows the empty form", () => {
     render(<NewProductPage />);
-    expect(screen.getByRole("heading", { name: "Ajouter un laptop" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Add a laptop" })).toBeInTheDocument();
   });
 
-  it("G1 admin : transmet les statistiques aux graphiques", async () => {
+  it("G1 admin: passes the statistics to the charts", async () => {
     vi.mocked(listProducts).mockResolvedValue([dell, dell2, acer]);
     render(await AdminPage());
     const props = JSON.parse(screen.getByTestId("charts").textContent ?? "{}");
@@ -101,8 +103,8 @@ describe("pages", () => {
     expect(props.prices[0]).toEqual({ label: "Acer Aspire 5", price: 549 });
   });
 
-  it("G1 404 : affiche le message", () => {
+  it("G1 404: shows the message", () => {
     render(<NotFound />);
-    expect(screen.getByRole("heading", { name: "Page introuvable" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Page not found" })).toBeInTheDocument();
   });
 });

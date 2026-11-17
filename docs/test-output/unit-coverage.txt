@@ -7,25 +7,25 @@ The plugin "vite-tsconfig-paths" is detected. Vite now supports tsconfig paths r
 [1m[30m[46m RUN [49m[39m[22m [36mv5.1.0 [39m[90m/workspaces/Project_RWA/2026-DemoApp-main[39m
       [2mCoverage enabled with [22m[33mv8[39m
 
- [32m✓[39m tests/unit/products.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 14[2mms[22m[39m
- [32m✓[39m tests/unit/ProductForm.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 605[2mms[22m[39m
+ [32m✓[39m tests/unit/ProductForm.test.tsx [2m([22m[2m14 tests[22m[2m)[22m[33m 839[2mms[22m[39m
+ [32m✓[39m tests/unit/pages.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[32m 174[2mms[22m[39m
  [32m✓[39m tests/unit/DeleteButton.test.tsx [2m([22m[2m3 tests[22m[2m)[22m[32m 145[2mms[22m[39m
- [32m✓[39m tests/unit/pages.test.tsx [2m([22m[2m11 tests[22m[2m)[22m[32m 156[2mms[22m[39m
- [32m✓[39m tests/unit/charts.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 36[2mms[22m[39m
- [32m✓[39m tests/unit/api-product-id.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 19[2mms[22m[39m
- [32m✓[39m tests/unit/api-products.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 19[2mms[22m[39m
- [32m✓[39m tests/unit/validation.test.ts [2m([22m[2m48 tests[22m[2m)[22m[32m 13[2mms[22m[39m
- [32m✓[39m tests/unit/homeContent.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
- [32m✓[39m tests/unit/stats.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/unit/charts.test.tsx [2m([22m[2m2 tests[22m[2m)[22m[32m 40[2mms[22m[39m
+ [32m✓[39m tests/unit/api-products.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m tests/unit/api-product-id.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 24[2mms[22m[39m
+ [32m✓[39m tests/unit/products.test.ts [2m([22m[2m15 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/unit/validation.test.ts [2m([22m[2m48 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m tests/unit/stats.test.ts [2m([22m[2m6 tests[22m[2m)[22m[32m 13[2mms[22m[39m
+ [32m✓[39m tests/unit/homeContent.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 10[2mms[22m[39m
  [32m✓[39m tests/unit/redis.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 7[2mms[22m[39m
  [32m✓[39m tests/unit/pocketbase.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 6[2mms[22m[39m
 
 [2m Test Files [22m [1m[32m12 passed[39m[22m[90m (12)[39m
 [2m      Tests [22m [1m[32m125 passed[39m[22m[90m (125)[39m
-[2m   Start at [22m 00:02:40
-[2m   Duration [22m 9.68s[2m (environment 59%, setup 17%, tests 13%, worker 5%, import 4%, transform 2%)[22m
+[2m   Start at [22m 13:49:07
+[2m   Duration [22m 14.28s[2m (environment 54%, setup 15%, import 14%, tests 11%, worker 3%, transform 3%)[22m
 
-[2mEnvironment [22m [33mjsdom was created 12 times[39m[2m · 4.59s total, 59% of tracked time[22m
+[2mEnvironment [22m [33mjsdom was created 12 times[39m[2m · 6.44s total, 54% of tracked time[22m
 [2m            [22m [2mcreate it once per worker with [22m[33mpool: 'vmThreads'[39m[2m (keeps per-file isolation) or [22m[33misolate: false[39m[2m (shares it across files)[22m
 [2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#test-environments[22m
 

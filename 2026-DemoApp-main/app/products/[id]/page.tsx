@@ -14,11 +14,11 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     <section className="page">
       <h1>{product.brand} {product.model}</h1>
       <div className="card">
-        <p>Prix : {product.price} €</p>
-        <p>Stock : {product.stock}</p>
+        <p>Price: {product.price} €</p>
+        <p>Stock: {product.stock}</p>
         <p>{product.description}</p>
       </div>
-      <Link href={`/products/${product.id}/edit`}>Modifier</Link>{" "}
+      <Link href={`/products/${product.id}/edit`}>Edit</Link>{" "}
       <DeleteButton id={product.id} />
     </section>
   );

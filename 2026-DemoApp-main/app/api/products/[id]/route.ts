@@ -9,10 +9,10 @@ export async function GET(_req: Request, { params }: Ctx) {
   const { id } = await params;
   try {
     const product = await getProduct(id);
-    if (!product) return NextResponse.json({ error: "Introuvable" }, { status: 404 });
+    if (!product) return NextResponse.json({ error: "Not found" }, { status: 404 });
     return NextResponse.json(product);
   } catch {
-    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
@@ -23,7 +23,7 @@ export async function PUT(request: Request, { params }: Ctx) {
   try {
     body = await request.json();
   } catch {
-    return NextResponse.json({ errors: ["JSON invalide"] }, { status: 400 });
+    return NextResponse.json({ errors: ["Invalid JSON"] }, { status: 400 });
   }
 
   const result = validateProduct(body);
@@ -33,11 +33,11 @@ export async function PUT(request: Request, { params }: Ctx) {
 
   try {
     const updated = await updateProduct(id, result.data);
-    if (!updated) return NextResponse.json({ error: "Introuvable" }, { status: 404 });
+    if (!updated) return NextResponse.json({ error: "Not found" }, { status: 404 });
     revalidateTag("products", { expire: 0 });
     return NextResponse.json(updated);
   } catch {
-    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }
 
@@ -45,10 +45,10 @@ export async function DELETE(_req: Request, { params }: Ctx) {
   const { id } = await params;
   try {
     const ok = await deleteProduct(id);
-    if (!ok) return NextResponse.json({ error: "Introuvable" }, { status: 404 });
+    if (!ok) return NextResponse.json({ error: "Not found" }, { status: 404 });
     revalidateTag("products", { expire: 0 });
     return new Response(null, { status: 204 });
   } catch {
-    return NextResponse.json({ error: "Erreur serveur" }, { status: 500 });
+    return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

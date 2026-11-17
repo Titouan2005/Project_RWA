@@ -21,7 +21,7 @@ afterEach(() => {
 });
 
 describe("listProducts", () => {
-  it("P1 appelle PocketBase avec le tag de cache et transforme les données", async () => {
+  it("P1 calls PocketBase with the cache tag and maps the data", async () => {
     const fetchMock = vi.fn().mockResolvedValue({
       ok: true,
       json: async () => ({ items: [{ id: "1", brand: "Acer", model: "Aspire 5", price: 549 }] }),
@@ -39,7 +39,7 @@ describe("listProducts", () => {
     expect(options.next.tags).toEqual(["products"]);
   });
 
-  it("P1 utilise l'URL par défaut", async () => {
+  it("P1 uses the default URL", async () => {
     const fetchMock = vi.fn().mockResolvedValue({ ok: true, json: async () => ({ items: [] }) });
     vi.stubGlobal("fetch", fetchMock);
     delete process.env.PB_URL;
@@ -47,33 +47,33 @@ describe("listProducts", () => {
     expect(fetchMock.mock.calls[0][0]).toContain("http://127.0.0.1:8090/api/collections/laptops/records");
   });
 
-  it("P3 lève une erreur si PocketBase répond mal", async () => {
+  it("P3 throws an error if PocketBase responds badly", async () => {
     vi.stubGlobal("fetch", vi.fn().mockResolvedValue({ ok: false }));
     await expect(listProducts()).rejects.toThrow("PocketBase error");
   });
 });
 
 describe("getProduct", () => {
-  it("P1 renvoie le produit transformé", async () => {
+  it("P1 returns the mapped product", async () => {
     collection.getOne.mockResolvedValue(record);
     expect(await getProduct("abc")).toEqual(record);
   });
-  it("P1 met des valeurs par défaut si description et stock manquent", async () => {
+  it("P1 uses default values if description and stock are missing", async () => {
     collection.getOne.mockResolvedValue({ id: "x", brand: "A", model: "B", price: 1 });
     expect(await getProduct("x")).toEqual({ id: "x", brand: "A", model: "B", price: 1, description: "", stock: 0 });
   });
-  it("P2 renvoie null si introuvable", async () => {
+  it("P2 returns null if not found", async () => {
     collection.getOne.mockRejectedValue(notFound());
     expect(await getProduct("zzz")).toBeNull();
   });
-  it("P3 propage les autres erreurs", async () => {
+  it("P3 propagates other errors", async () => {
     collection.getOne.mockRejectedValue(serverError());
     await expect(getProduct("abc")).rejects.toBeInstanceOf(ClientResponseError);
   });
 });
 
 describe("createProduct", () => {
-  it("P1 crée et renvoie le produit", async () => {
+  it("P1 creates and returns the product", async () => {
     collection.create.mockResolvedValue(record);
     expect(await createProduct(input)).toEqual(record);
     expect(collection.create).toHaveBeenCalledWith(input);
@@ -81,36 +81,36 @@ describe("createProduct", () => {
 });
 
 describe("updateProduct", () => {
-  it("P1 modifie et renvoie le produit", async () => {
+  it("P1 updates and returns the product", async () => {
     collection.update.mockResolvedValue(record);
     expect(await updateProduct("abc", input)).toEqual(record);
     expect(collection.update).toHaveBeenCalledWith("abc", input);
   });
-  it("P2 renvoie null si introuvable", async () => {
+  it("P2 returns null if not found", async () => {
     collection.update.mockRejectedValue(notFound());
     expect(await updateProduct("zzz", input)).toBeNull();
   });
-  it("P3 propage les autres erreurs", async () => {
+  it("P3 propagates other errors", async () => {
     collection.update.mockRejectedValue(serverError());
     await expect(updateProduct("abc", input)).rejects.toBeInstanceOf(ClientResponseError);
   });
 });
 
 describe("deleteProduct", () => {
-  it("P1 renvoie true après suppression", async () => {
+  it("P1 returns true after deleting", async () => {
     collection.delete.mockResolvedValue(true);
     expect(await deleteProduct("abc")).toBe(true);
   });
-  it("P2 renvoie false si introuvable", async () => {
+  it("P2 returns false if not found", async () => {
     collection.delete.mockRejectedValue(notFound());
     expect(await deleteProduct("zzz")).toBe(false);
   });
-  it("P3 propage les autres erreurs", async () => {
+  it("P3 propagates other errors", async () => {
     collection.delete.mockRejectedValue(serverError());
     await expect(deleteProduct("abc")).rejects.toBeInstanceOf(ClientResponseError);
   });
-  it("P3 propage une erreur qui n'est pas de PocketBase", async () => {
-    collection.delete.mockRejectedValue(new Error("réseau"));
-    await expect(deleteProduct("abc")).rejects.toThrow("réseau");
+  it("P3 propagates an error that does not come from PocketBase", async () => {
+    collection.delete.mockRejectedValue(new Error("network"));
+    await expect(deleteProduct("abc")).rejects.toThrow("network");
   });
 });
